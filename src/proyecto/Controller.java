@@ -1,4 +1,4 @@
-package sample;
+package proyecto;
 
 public class Controller {
 }
