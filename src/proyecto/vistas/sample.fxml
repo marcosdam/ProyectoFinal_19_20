@@ -26,24 +26,24 @@
             <JFXButton fx:id="btnSalir" onMouseClicked="#onBotonSalirClicked" prefHeight="80.0" prefWidth="250.0" text="Salir" />
          </children>
       </VBox>
-      <AnchorPane id="anchorClientes" layoutX="250.0" layoutY="-5.0" prefHeight="487.0" prefWidth="769.0">
+      <AnchorPane id="anchorClientes" fx:id="anchorPaneDerecha" layoutX="250.0" layoutY="-5.0" prefHeight="487.0" prefWidth="769.0">
          <children>
-            <AnchorPane id="anchorPaneClientes" layoutY="96.0" prefHeight="397.0" prefWidth="769.0" style="-fx-background-color: #f5f0f0;">
+            <AnchorPane id="anchorPaneClientes" fx:id="anchorPaneZonaClientes" layoutY="96.0" prefHeight="397.0" prefWidth="769.0" style="-fx-background-color: #f5f0f0;">
                <children>
-                  <ButtonBar layoutX="18.0" layoutY="14.0" prefHeight="40.0" prefWidth="519.0">
+                  <ButtonBar fx:id="btnBarClientes" layoutX="18.0" layoutY="14.0" prefHeight="40.0" prefWidth="519.0">
                      <buttons>
-                        <JFXButton fx:id="btnNuevoCliente" prefHeight="32.0" prefWidth="178.0" text="Nuevo" />
+                        <JFXButton fx:id="btnNuevoCliente" onMouseClicked="#onBotonNuevoClicked" prefHeight="32.0" prefWidth="178.0" text="Nuevo" />
                         <JFXButton fx:id="btnModificarCliente" text="Modificar" />
                         <JFXButton fx:id="btnEliminarCliente" prefHeight="32.0" prefWidth="185.0" text="Eliminar" />
                      </buttons>
                   </ButtonBar>
-                  <AnchorPane fx:id="anchorPaneCrearCliente" layoutX="-1.0" layoutY="61.0" prefHeight="336.0" prefWidth="769.0">
+                  <AnchorPane fx:id="anchorPaneCrearCliente" layoutX="-1.0" layoutY="61.0" prefHeight="185.0" prefWidth="769.0">
                      <children>
                         <TextField fx:id="txtDNI" layoutX="49.0" layoutY="40.0" promptText="DNI" />
-                        <TextField fx:id="txtApellido2" layoutX="49.0" layoutY="92.0" promptText="Segundo apellido" />
-                        <TextField fx:id="txtNombre" layoutX="219.0" layoutY="40.0" promptText="Nombre" />
-                        <TextField fx:id="txtApellido1" layoutX="391.0" layoutY="40.0" promptText="Primer apellido" />
-                        <TextField fx:id="txtTelefono" layoutX="219.0" layoutY="92.0" promptText="Teléfono" />
+                        <TextField fx:id="txtApellido2" layoutX="219.0" layoutY="92.0" promptText="Segundo apellido" />
+                        <TextField fx:id="txtNombre" layoutX="49.0" layoutY="92.0" promptText="Nombre" />
+                        <TextField fx:id="txtApellido1" layoutX="219.0" layoutY="40.0" promptText="Primer apellido" />
+                        <TextField fx:id="txtTelefono" layoutX="391.0" layoutY="39.0" promptText="Teléfono" />
                         <TextField fx:id="txtEmail" layoutX="391.0" layoutY="92.0" promptText="Email" />
                         <JFXButton fx:id="btnGuardar" layoutX="578.0" layoutY="36.0" prefHeight="32.0" prefWidth="150.0" text="Guardar" />
                         <JFXButton fx:id="btnCancelar" layoutX="577.0" layoutY="89.0" prefHeight="32.0" prefWidth="152.0" text="Cancelar" />
