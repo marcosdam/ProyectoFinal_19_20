@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1018.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.controladores.PrincipalController">
    <children>
@@ -15,5 +17,20 @@
       <Label layoutX="154.0" layoutY="138.0" text="Clientes" />
       <Label layoutX="494.0" layoutY="137.0" text="Citas" />
       <Label layoutX="800.0" layoutY="138.0" text="Tratamientos" />
+      <TextField fx:id="txtDNI" layoutX="102.0" layoutY="196.0" promptText="DNI" />
+      <TextField fx:id="txtNombre" layoutX="102.0" layoutY="242.0" promptText="Nombre" />
+      <TextField fx:id="txtApellido1" layoutX="102.0" layoutY="288.0" promptText="Primer apellido" />
+      <TextField fx:id="txtApellido2" layoutX="102.0" layoutY="335.0" promptText="Segundo apellido" />
+      <TextField fx:id="txtTelefono" layoutX="104.0" layoutY="385.0" promptText="Nº Teléfono" />
+      <TextField fx:id="txtEmail" layoutX="104.0" layoutY="438.0" promptText="Email" />
+      <CheckBox fx:id="chLavadoSecado" layoutX="804.0" layoutY="201.0" mnemonicParsing="false" text="Lavado y Secado" />
+      <CheckBox fx:id="chCorte" layoutX="804.0" layoutY="293.0" mnemonicParsing="false" text="Corte" />
+      <CheckBox fx:id="chTinte" layoutX="804.0" layoutY="398.0" mnemonicParsing="false" text="Tinte" />
+      <Button fx:id="btnCrearCliente" layoutX="116.0" layoutY="496.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Crear cliente" />
+      <Button fx:id="btnModificarCliente" layoutX="116.0" layoutY="572.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Modificar ciente" />
+      <Button fx:id="btnEliminarCliente" layoutX="116.0" layoutY="654.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Eliminar cliente" />
+      <Button fx:id="btnNuevaCita" layoutX="445.0" layoutY="496.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Nueva cita" />
+      <Button fx:id="btnModificarCita" layoutX="445.0" layoutY="572.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Modificar cita" />
+      <Button fx:id="btnEliminarCita" layoutX="445.0" layoutY="654.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" text="Eliminar cita" />
    </children>
 </AnchorPane>
