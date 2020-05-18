@@ -35,9 +35,9 @@
                <children>
                   <ButtonBar fx:id="btnBarClientes" layoutX="18.0" layoutY="14.0" prefHeight="40.0" prefWidth="519.0">
                      <buttons>
-                        <JFXButton fx:id="btnNuevoCliente" onMouseClicked="#mostrarZonaCrearCliente" prefHeight="32.0" prefWidth="178.0" text="Nuevo" />
-                        <JFXButton fx:id="btnModificarCliente" onMouseClicked="#mostrarZonaModificarCliente" text="Modificar" />
-                        <JFXButton fx:id="btnEliminarCliente" onMouseClicked="#mostrarZonaEliminarCliente" prefHeight="32.0" prefWidth="185.0" text="Eliminar" />
+                        <JFXButton fx:id="btnNuevoCliente" onMouseClicked="#mostrarZonaCrearCliente" prefHeight="32.0" prefWidth="178.0" style="-fx-background-color: #4287f5;" text="Nuevo" />
+                        <JFXButton fx:id="btnModificarCliente" onMouseClicked="#mostrarZonaModificarCliente" prefHeight="38.0" style="-fx-background-color: #4287f5;" text="Modificar" />
+                        <JFXButton fx:id="btnEliminarCliente" onMouseClicked="#mostrarZonaEliminarCliente" prefHeight="32.0" prefWidth="185.0" style="-fx-background-color: #4287f5;" text="Eliminar" />
                      </buttons>
                   </ButtonBar>
                   <AnchorPane fx:id="anchorPaneCrearCliente" layoutX="-1.0" layoutY="61.0" prefHeight="233.0" prefWidth="769.0" visible="false">
@@ -48,21 +48,22 @@
                         <TextField fx:id="txtApellido1" layoutX="219.0" layoutY="40.0" promptText="Primer apellido" />
                         <TextField fx:id="txtTelefono" layoutX="391.0" layoutY="39.0" promptText="Teléfono" />
                         <TextField fx:id="txtEmail" layoutX="391.0" layoutY="92.0" promptText="Email" />
-                        <JFXButton fx:id="btnGuardar" layoutX="578.0" layoutY="36.0" onMouseClicked="#guardarCliente" prefHeight="32.0" prefWidth="150.0" text="Guardar" />
-                        <JFXButton fx:id="btnCancelar" layoutX="577.0" layoutY="89.0" onMouseClicked="#onBotonCancelarClicked" prefHeight="32.0" prefWidth="152.0" text="Cancelar" />
+                        <JFXButton fx:id="btnGuardar" layoutX="578.0" layoutY="36.0" onMouseClicked="#guardarCliente" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #4287f5;" text="Guardar" />
+                        <JFXButton fx:id="btnCancelar" layoutX="577.0" layoutY="89.0" onMouseClicked="#onBotonCancelarClicked" prefHeight="32.0" prefWidth="152.0" style="-fx-background-color: #4287f5;" text="Cancelar" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="anchorPaneModificarCliente" layoutY="62.0" prefHeight="251.0" prefWidth="769.0">
                      <children>
-                        <JFXButton fx:id="btnOK" layoutX="216.0" layoutY="50.0" text="OK" />
-                        <TextField fx:id="txtNuevoNombre" layoutX="320.0" layoutY="54.0" />
-                        <TextField fx:id="txtNuevoApellido1" layoutX="320.0" layoutY="113.0" />
-                        <TextField fx:id="txtNuevoApellido2" layoutX="320.0" layoutY="167.0" />
-                        <TextField fx:id="txtNuevoTelefono" layoutX="526.0" layoutY="54.0" />
-                        <TextField fx:id="txtNuevoEmail" layoutX="528.0" layoutY="113.0" />
-                        <JFXButton fx:id="btnGuardarCambios" layoutX="526.0" layoutY="168.0" prefHeight="32.0" prefWidth="160.0" text="Guardar cambios" />
+                        <JFXButton fx:id="btnOK" layoutX="216.0" layoutY="50.0" onMouseClicked="#cargarCliente" style="-fx-background-color: #5df084;" text="OK" />
+                        <TextField fx:id="txtNuevoNombre" layoutX="320.0" layoutY="54.0" promptText="Nuevo nombre" />
+                        <TextField fx:id="txtNuevoApellido1" layoutX="320.0" layoutY="113.0" promptText="Nuevo apellido 1" />
+                        <TextField fx:id="txtNuevoApellido2" layoutX="320.0" layoutY="167.0" promptText="Nuevo apellido 2" />
+                        <TextField fx:id="txtNuevoTelefono" layoutX="526.0" layoutY="54.0" promptText="Nuevo teléfono" />
+                        <TextField fx:id="txtNuevoEmail" layoutX="528.0" layoutY="113.0" promptText="Nuevo Email" />
+                        <JFXButton fx:id="btnGuardarCambios" layoutX="526.0" layoutY="168.0" onMouseClicked="#modificarCliente" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #4287f5;" text="Guardar cambios" />
                         <JFXComboBox fx:id="cbModificarCliente" layoutX="43.0" layoutY="52.0" prefHeight="28.0" prefWidth="160.0" />
                         <Label layoutX="43.0" layoutY="32.0" prefHeight="18.0" prefWidth="160.0" text="Seleccione el cliente" />
+                        <JFXButton fx:id="btnEliminar" layoutX="526.0" layoutY="168.0" onMouseClicked="#eliminarCliente" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #f55656;" text="Eliminar cliente" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
@@ -76,30 +77,31 @@
                         <JFXButton fx:id="btnEliminarCita" onMouseClicked="#mostrarZonaEliminarCita" prefHeight="32.0" prefWidth="185.0" text="Eliminar cita" />
                      </buttons>
                   </ButtonBar>
-                  <AnchorPane fx:id="anchorPaneCrearCita" layoutX="-1.0" layoutY="72.0" prefHeight="240.0" prefWidth="769.0">
+                  <AnchorPane fx:id="anchorPaneCrearCita" layoutX="-1.0" layoutY="72.0" prefHeight="240.0" prefWidth="769.0" visible="false">
                      <children>
                         <TextField fx:id="txtHoraCita" layoutX="219.0" layoutY="92.0" promptText="Hora" />
                         <TextField fx:id="txtNombreCita" layoutX="45.0" layoutY="40.0" promptText="Nombre" />
                         <TextField fx:id="txtApellidoCita" layoutX="219.0" layoutY="40.0" promptText="Apellido" />
-                        <TextField fx:id="txtFechaCita" layoutX="45.0" layoutY="92.0" promptText="Día/Mes/Año" />
-                        <JFXButton fx:id="btnGuardarCita" layoutX="578.0" layoutY="36.0" onMouseClicked="#guardarCliente" prefHeight="32.0" prefWidth="150.0" text="Guardar" />
-                        <JFXButton fx:id="btnCancelarCita" layoutX="577.0" layoutY="89.0" onMouseClicked="#onBotonCancelarClicked" prefHeight="32.0" prefWidth="152.0" text="Cancelar" />
+                        <TextField fx:id="txtFechaCita" layoutX="45.0" layoutY="92.0" promptText="Año/Mes/Día" />
+                        <JFXButton fx:id="btnGuardarCita" layoutX="578.0" layoutY="36.0" onMouseClicked="#guardarCita" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #4287f5;" text="Guardar" />
+                        <JFXButton fx:id="btnCancelarCita" layoutX="577.0" layoutY="89.0" prefHeight="32.0" prefWidth="152.0" style="-fx-background-color: #4287f5;" text="Cancelar" />
                         <RadioButton fx:id="rbLavadoSecado" layoutX="394.0" layoutY="52.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Lavado y secado" />
                         <RadioButton fx:id="rbCorte" layoutX="394.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Corte" />
                         <RadioButton fx:id="rbTinte" layoutX="469.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Tinte" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="anchorPaneModificarClita" layoutY="62.0" prefHeight="251.0" prefWidth="769.0" visible="false">
+                  <AnchorPane fx:id="anchorPaneModificarCita" layoutY="62.0" prefHeight="251.0" prefWidth="769.0" visible="false">
                      <children>
-                        <JFXButton fx:id="btnOKModificarCita" layoutX="220.0" layoutY="51.0" text="OK" />
+                        <JFXButton fx:id="btnOKModificarCita" layoutX="220.0" layoutY="51.0" style="-fx-background-color: #5df084;" text="OK" />
                         <TextField fx:id="txtCitaNombre" layoutX="320.0" layoutY="54.0" promptText="Nombre" />
                         <TextField fx:id="txtCitaFecha" layoutX="320.0" layoutY="113.0" promptText="Fecha" />
                         <TextField fx:id="txtCitaTratamiento" layoutX="320.0" layoutY="167.0" promptText="Tratamiento" />
                         <TextField fx:id="txtCitaApellido" layoutX="526.0" layoutY="54.0" promptText="Apellido" />
                         <TextField fx:id="txtCitaHora" layoutX="528.0" layoutY="113.0" promptText="Hora" />
-                        <JFXButton fx:id="btnGuardarCambiosCita" layoutX="526.0" layoutY="168.0" prefHeight="32.0" prefWidth="160.0" text="Guardar cambios" />
+                        <JFXButton fx:id="btnModificarCita" layoutX="526.0" layoutY="168.0" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #4287f5;" text="Guardar cambios" />
                         <Label layoutX="43.0" layoutY="32.0" prefHeight="18.0" prefWidth="160.0" text="Seleccione una fecha" />
                         <JFXDatePicker fx:id="dtpCitas" defaultColor="#005c94" layoutX="32.0" layoutY="55.0" />
+                        <JFXButton fx:id="btnCitaEliminar" layoutX="526.0" layoutY="168.0" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #4287f5;" text="Eliminar cita" visible="false" />
                      </children>
                   </AnchorPane>
                </children>

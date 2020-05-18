@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static javafx.fxml.FXMLLoader.load;
+
 /*
     Cambiado desde Web
 */
@@ -14,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("vistas/sample.fxml"));
+        Parent root = load(getClass().getResource("vistas/sample.fxml"));
         primaryStage.setTitle("Ana Monzón Estilistas");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

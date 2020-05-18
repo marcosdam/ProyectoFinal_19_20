@@ -1,6 +1,7 @@
 package proyecto.controladores;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import proyecto.modelos.Cita;
 import proyecto.modelos.Cliente;
 
-import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -48,6 +48,7 @@ public class PrincipalController implements Initializable {
 
     // CLIENTES -> ELIMINAR CLIENTE
     // (Va a usar el mismo que modificar cliente, cambiando texto de btnGuardar "Guardar" por "Eliminar"
+    @FXML private Button btnEliminarCliente;
 
     // MENÚ CITAS
     @FXML private AnchorPane anchorPaneZonaCitas;
@@ -62,6 +63,7 @@ public class PrincipalController implements Initializable {
     @FXML private RadioButton rbTinte;
     @FXML private Button btnGuardarCita;
     @FXML private Button btnCancelarCita;
+    @FXML private Button btnCitaEliminar;
 
     // CITAS -> MODIFICAR CITA
     @FXML private AnchorPane anchorPaneModificarCita;
@@ -86,12 +88,20 @@ public class PrincipalController implements Initializable {
         anchorPaneModificarCliente.setVisible(false);
         anchorPaneZonaCitas.setVisible(false);
         anchorPaneCrearCita.setVisible(false);
+        try {
+            rellenarComboBoxClientes();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         //anchorPaneModificarCita.setVisible(false);
         //anchorPaneEliminarCita.setVisible(false);
 
         // Rellenar comboBox
         //cbModificarCliente.setItems();
 
+        btnEliminar.setVisible(false);
+        btnCitaEliminar.setVisible(false);
     }
 
     /**
@@ -102,7 +112,6 @@ public class PrincipalController implements Initializable {
         Platform.exit();
         System.exit(0);
     }
-
 
     /**
      * Función para limpiar al pulsar Cancelar en crearCliente
@@ -119,7 +128,11 @@ public class PrincipalController implements Initializable {
      */
     private Cliente rellenarCliente(){
         Cliente cliente = new Cliente();
-        cliente.setCodCliente(1);           // MODIFICAR ESTO controlarlo de otra forma
+        try {
+            cliente.setCodCliente(controlDB.contarClientes());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         cliente.setDni(txtDNI.getText());
         cliente.setNombre(txtNombre.getText());
         cliente.setApellido1(txtApellido1.getText());
@@ -128,6 +141,43 @@ public class PrincipalController implements Initializable {
         cliente.setEmail(txtEmail.getText());
 
         return cliente;
+    }
+
+    private void rellenarDatosCliente(Cliente cliente){
+        txtNuevoNombre.setText(cliente.getNombre());
+        txtNuevoApellido1.setText(cliente.getApellido1());
+        txtNuevoApellido2.setText(cliente.getApellido2());
+        txtNuevoTelefono.setText(cliente.getTelefono());
+        txtNuevoEmail.setText(cliente.getEmail());
+    }
+
+    Cliente cliente;
+    public void cargarCliente(MouseEvent event){
+        String dniCliente = cbModificarCliente.getValue();
+
+        try {
+            Connection connection = controlDB.getConnection();
+            cliente = controlDB.getCliente(connection, dniCliente);
+            if (cliente != null)
+                rellenarDatosCliente(cliente);
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR DE DATOS");
+                alert.setContentText("Cliente no encontrado");
+                alert.showAndWait();
+            }
+        } catch (SQLException throwables) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR BASE DE DATOS");
+            alert.setContentText("Error al conectar a la Base de Datos");
+            alert.showAndWait();
+        }
+    }
+
+    public void rellenarComboBoxClientes() throws SQLException{
+        ObservableList<String> clientes = controlDB.getDNISClientes(controlDB.getConnection());
+        cbModificarCliente.setItems(clientes);
     }
 
     /**
@@ -162,8 +212,32 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    public void actualizarCliente(MouseEvent event){}
-    public void eliminarCliente(MouseEvent event){}
+    public void modificarCliente(MouseEvent event){
+        //int codCliente = controlDB.getCodCliente(cbModificarCliente.getValue());
+        cliente.setDni(cbModificarCliente.getValue());
+        cliente.setNombre(txtNuevoNombre.getText());
+        cliente.setApellido1(txtNuevoApellido1.getText());
+        cliente.setApellido2(txtNuevoApellido2.getText());
+        cliente.setTelefono(txtNuevoTelefono.getText());
+        cliente.setEmail(txtNuevoEmail.getText());
+
+        try {
+            controlDB.modificarCliente(controlDB.getConnection(), cliente);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+    public void eliminarCliente(MouseEvent event){
+        int codCliente = controlDB.getCodCliente(cbModificarCliente.getValue());
+        try {
+            controlDB.eliminarCliente(controlDB.getConnection(), codCliente);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     /**
      * Función para limpiar los campos de crearCliente
@@ -175,6 +249,17 @@ public class PrincipalController implements Initializable {
         txtApellido2.clear();
         txtTelefono.clear();
         txtEmail.clear();
+    }
+
+    /**
+     * Función para limpiar los campos de crearCliente
+     */
+    private void limpiarModificarCliente() {
+        txtNuevoNombre.clear();
+        txtNuevoApellido1.clear();
+        txtNuevoApellido2.clear();
+        txtNuevoTelefono.clear();
+        txtNuevoEmail.clear();
     }
 
     /**
@@ -190,14 +275,7 @@ public class PrincipalController implements Initializable {
         rbTinte.setSelected(false);
     }
 
-    /**
-     * Función para ocultar la zona de clientes (al pulsar Citas o Tratamientos)
-     */
-    public void ocultarZonaClientes(MouseEvent event){
-        // PENDIENTE CREAR UN BOTON VOLVER
-        if(anchorPaneZonaClientes.isVisible())
-            anchorPaneZonaClientes.setVisible(false);
-    }
+
 
     /**
      * Función que recoge los datos de la interfaz y crea el Objeto Cita
@@ -212,13 +290,22 @@ public class PrincipalController implements Initializable {
         LocalDate dateFecha = LocalDate.of(dia, mes, anyo);
 
         Cita cita = new Cita();
-        cita.setCodCita(1); // MODIFICAR ESTO controlarlo de otra forma
+        try {
+            cita.setCodCita(controlDB.contarCitas());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         cita.setFecha(dateFecha);
         cita.setHora(txtHoraCita.getText());
 
         return cita;
     }
 
+    /**
+     * Función que guarda la cita en la BD
+     * @param event
+     */
+    // Controlar NO DAR CITAS EN HORAS COGIDAS
     public void guardarCita(MouseEvent event){
         Cita cita = rellenarCita();
         try {
@@ -247,11 +334,14 @@ public class PrincipalController implements Initializable {
         }
     }
 
+
     public void actualizarCita(MouseEvent event){}
     public void eliminarCita(MouseEvent event){}
 
 
-    // CONTROL VENTANAS ZONA CLIENTES
+
+
+    // CONTROL VENTANAS ###############################################
     /**
      * Función para activar AnchorPane Zona Clientes
      * @param event
@@ -270,13 +360,16 @@ public class PrincipalController implements Initializable {
         if (!anchorPaneCrearCliente.isVisible())
             anchorPaneCrearCliente.setVisible(true);
         anchorPaneModificarCliente.setVisible(false);
+        limpiarModificarCliente();
     }
 
     public void mostrarZonaModificarCliente(MouseEvent event){
         if (!anchorPaneModificarCliente.isVisible())
             anchorPaneModificarCliente.setVisible(true);
         anchorPaneCrearCliente.setVisible(false);
-        btnGuardarCambios.setText("Guardar");
+        btnGuardarCambios.setVisible(true);
+        btnEliminar.setVisible(false);
+        limpiarCrearCliente();
     }
 
     /**
@@ -287,7 +380,8 @@ public class PrincipalController implements Initializable {
         if (!anchorPaneModificarCliente.isVisible())
             anchorPaneModificarCliente.setVisible(true);
         anchorPaneCrearCliente.setVisible(false);
-        btnGuardarCambios.setText("Eliminar Cliente");
+        btnGuardarCambios.setVisible(false);
+        btnEliminar.setVisible(true);
     }
 
 
@@ -302,20 +396,21 @@ public class PrincipalController implements Initializable {
         if (!anchorPaneCrearCita.isVisible())
             anchorPaneCrearCita.setVisible(true);
         anchorPaneModificarCita.setVisible(false);
-        anchorPaneEliminarCita.setVisible(false);
     }
 
     public void mostrarZonaModificarCita(MouseEvent event){
         if (!anchorPaneModificarCita.isVisible())
             anchorPaneModificarCita.setVisible(true);
         anchorPaneCrearCita.setVisible(false);
-        anchorPaneEliminarCita.setVisible(false);
+        btnGuardarCita.setVisible(true);
+        btnCitaEliminar.setVisible(false);
     }
 
     public void mostrarZonaEliminarCita(MouseEvent event){
-        if (!anchorPaneEliminarCita.isVisible())
-            anchorPaneEliminarCita.setVisible(true);
+        if (!anchorPaneModificarCita.isVisible())
+            anchorPaneModificarCita.setVisible(true);
         anchorPaneCrearCita.setVisible(false);
-        anchorPaneModificarCita.setVisible(false);
+        btnGuardarCita.setVisible(false);
+        btnCitaEliminar.setVisible(true);
     }
 }
